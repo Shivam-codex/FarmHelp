@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Soil Analysis & Crop Recommendation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>FarmHelp: Soil Analysis & Crop Recommendation</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about" class="active">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="about-section">
+                <h2>About FarmHelp</h2>
+                <p>FarmHelp is a soil analysis and crop recommendation system designed specifically for farmers in Maharashtra. Our goal is to help farmers make informed decisions about crop selection and fertilizer usage based on their soil conditions and local climate.</p>
+                
+                <div class="info-card">
+                    <h3>How It Works</h3>
+                    <p>Our system uses advanced machine learning algorithms (XGBoost) trained on extensive agricultural data to provide accurate crop recommendations. By analyzing your soil's nutrient content (N, P, K), pH level, and environmental factors like temperature, humidity, and rainfall, we can suggest the most suitable crops for your land.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Benefits for Farmers</h3>
+                    <ul>
+                        <li>Get personalized crop recommendations based on your soil parameters</li>
+                        <li>Receive specific fertilizer recommendations to improve soil health</li>
+                        <li>Increase crop yield and quality through data-driven farming decisions</li>
+                        <li>Reduce costs by optimizing fertilizer usage</li>
+                        <li>Contribute to sustainable agricultural practices</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Understanding Soil Parameters</h3>
+                    <table class="info-table">
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Description</th>
+                            <th>Importance</th>
+                        </tr>
+                        <tr>
+                            <td>Nitrogen (N)</td>
+                            <td>Essential for leaf growth and green vegetation</td>
+                            <td>Critical for plant growth and development</td>
+                        </tr>
+                        <tr>
+                            <td>Phosphorus (P)</td>
+                            <td>Important for root development and flowering</td>
+                            <td>Helps in energy transfer and root development</td>
+                        </tr>
+                        <tr>
+                            <td>Potassium (K)</td>
+                            <td>Enhances overall plant health and disease resistance</td>
+                            <td>Improves quality of fruits and vegetables</td>
+                        </tr>
+                        <tr>
+                            <td>pH Level</td>
+                            <td>Measure of soil acidity or alkalinity</td>
+                            <td>Affects nutrient availability to plants</td>
+                        </tr>
+                        <tr>
+                            <td>Temperature</td>
+                            <td>Average temperature of the region</td>
+                            <td>Determines suitable crops for the climate</td>
+                        </tr>
+                        <tr>
+                            <td>Humidity</td>
+                            <td>Amount of moisture in the air</td>
+                            <td>Affects plant transpiration and disease risk</td>
+                        </tr>
+                        <tr>
+                            <td>Rainfall</td>
+                            <td>Average annual rainfall in the region</td>
+                            <td>Determines water availability for crops</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Contact Us</h3>
+                    <p>For more information or assistance, please contact our agricultural experts:</p>
+                    <p>Email: support@farmhelp.in</p>
+                    <p>Phone: +91 9011967964</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 FarmHelp - Soil Analysis & Crop Recommendation</p>
+        </div>
+    </footer>
+</body>
+</html>
