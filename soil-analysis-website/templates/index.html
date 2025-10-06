@@ -14,10 +14,26 @@
                 <ul>
                     <li><a href="/" class="active">Home</a></li>
                     <li><a href="/about">About</a></li>
+                    {% if session.user_id %}
+                        <li><a href="/logout">Logout ({{ session.user_name }})</a></li>
+                    {% else %}
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/register">Register</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </div>
     </header>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
 
     <main>
         <div class="container">
@@ -27,6 +43,8 @@
             </section>
 
             <section class="form-section">
+                <div id="error-message" class="alert alert-error hidden" style="display: none;"></div>
+                {% if session.user_id %}
                 <form id="soil-form">
                     <div class="form-grid">
                         <div class="form-group">
@@ -89,6 +107,14 @@
                         <button type="reset" class="btn-secondary">Reset</button>
                     </div>
                 </form>
+                {% else %}
+                <div class="login-prompt">
+                    <h3>Please Log In</h3>
+                    <p>You need to be logged in to use the soil analysis feature.</p>
+                    <a href="/login" class="btn-primary">Login</a>
+                    <a href="/register" class="btn-secondary">Register</a>
+                </div>
+                {% endif %}
             </section>
 
             <section id="results" class="results-section hidden">

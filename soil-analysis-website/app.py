@@ -1,9 +1,15 @@
 import os
 import pickle
 import json
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, redirect, url_for, session, flash
+from models import authenticate_user, create_user
+from functools import wraps
+import secrets
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
 
 # Load the pre-trained model
 MODEL_PATH = os.path.join('model', 'xgboost_model.pkl')
@@ -131,6 +137,16 @@ CROP_RECOMMENDATIONS = {
     }
 }
 
+# Login required decorator
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            flash('Please log in to access this page', 'error')
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
+
 # Routes
 @app.route('/')
 def home():
@@ -140,8 +156,61 @@ def home():
 def about():
     return render_template('about.html')
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if 'user_id' in session:
+        return redirect(url_for('home'))
+        
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        remember = request.form.get('remember')
+        
+        user = authenticate_user(email, password)
+        if user:
+            session['user_id'] = str(user['_id'])
+            session['user_email'] = user['email']
+            session['user_name'] = user.get('name', 'User')
+            
+            if remember:
+                session.permanent = True
+                
+            return redirect(url_for('home'))
+        else:
+            flash('Invalid email or password', 'error')
+    
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('You have been logged out', 'info')
+    return redirect(url_for('login'))
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if 'user_id' in session:
+        return redirect(url_for('home'))
+        
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        if create_user(name, email, password):
+            flash('Registration successful! Please log in.', 'success')
+            return redirect(url_for('login'))
+        else:
+            flash('Email already exists', 'error')
+    
+    return render_template('register.html')
+
 @app.route('/predict', methods=['POST'])
 def predict():
+    # Check if user is logged in
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required. Please log in to access this feature.'}), 401
+    
     try:
         # Get data from request
         data = request.get_json()
