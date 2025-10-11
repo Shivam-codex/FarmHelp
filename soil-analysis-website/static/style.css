@@ -212,6 +212,47 @@ main {
     transform: translateY(-2px);
 }
 
+/* Modernized form buttons */
+.form-actions .btn-primary {
+    padding: 0.9rem 2.2rem;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #51a36a, #2c5530);
+    color: #ffffff;
+    border: 0;
+    box-shadow: 0 10px 20px rgba(76, 175, 80, 0.15), 0 2px 6px rgba(0,0,0,0.05);
+    transform: translateY(0);
+}
+
+.form-actions .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 24px rgba(76, 175, 80, 0.22), 0 4px 10px rgba(0,0,0,0.08);
+    filter: brightness(1.03);
+}
+
+.form-actions .btn-primary:active {
+    transform: translateY(0);
+}
+
+.form-actions .btn-secondary {
+    padding: 0.9rem 2.2rem;
+    border-radius: 9999px;
+    background: transparent;
+    color: #2c5530;
+    border: 2px solid #2c5530;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    backdrop-filter: saturate(1.1);
+}
+
+.form-actions .btn-secondary:hover {
+    background: rgba(44, 85, 48, 0.08);
+    border-color: #2c5530;
+}
+
+.btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(74, 124, 89, 0.25);
+}
+
 /* Login prompt */
 .login-prompt {
     text-align: center;
@@ -239,6 +280,159 @@ main {
     margin: 0 0.5rem;
     text-decoration: none;
     display: inline-block;
+}
+
+/* Hero section */
+.hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 2rem;
+    align-items: center;
+    padding: 2.5rem;
+    background: linear-gradient(180deg, #ffffff, #eef5f0);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.hero-content h2 {
+    font-size: 2.2rem;
+    color: #2c5530;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    color: #4b5563;
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Modern hero buttons */
+.hero-actions .btn-primary {
+    padding: 0.9rem 2rem;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #51a36a, #2c5530);
+    color: #ffffff;
+    border: 0;
+    box-shadow: 0 10px 20px rgba(76, 175, 80, 0.15), 0 2px 6px rgba(0,0,0,0.05);
+    transform: translateY(0);
+}
+
+.hero-actions .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 24px rgba(76, 175, 80, 0.22), 0 4px 10px rgba(0,0,0,0.08);
+    filter: brightness(1.03);
+}
+
+.hero-actions .btn-primary:active {
+    transform: translateY(0);
+}
+
+.hero-actions .btn-secondary {
+    padding: 0.9rem 2rem;
+    border-radius: 9999px;
+    background: transparent;
+    color: #2c5530;
+    border: 2px solid #2c5530;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    backdrop-filter: saturate(1.1);
+}
+
+.hero-actions .btn-secondary:hover {
+    background: rgba(44, 85, 48, 0.08);
+    border-color: #2c5530;
+}
+
+.hero-art {
+    height: 260px;
+    border-radius: 12px;
+    background: radial-gradient(120px 120px at 20% 30%, #a7d7b5 0%, rgba(167,215,181,0) 70%),
+                radial-gradient(140px 140px at 80% 70%, #7fb38f 0%, rgba(127,179,143,0) 70%),
+                linear-gradient(135deg, #dff0e6, #ffffff);
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.06);
+}
+
+/* Features */
+.features {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    color: #2c5530;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.6rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.feature-card {
+    background: #f8fbf9;
+    border-radius: 10px;
+    padding: 1.25rem;
+    border: 1px solid #e6eee9;
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.feature-card h4 {
+    color: #2c5530;
+    margin-bottom: 0.25rem;
+}
+
+.feature-card p {
+    color: #555;
+}
+
+/* How it works */
+.how-it-works {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.step {
+    background: #f8fbf9;
+    border: 1px solid #e6eee9;
+    border-radius: 10px;
+    padding: 1.25rem;
+}
+
+.step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #4a7c59;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
 }
 
 /* Results section */

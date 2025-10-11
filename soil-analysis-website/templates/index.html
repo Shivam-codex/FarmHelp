@@ -108,12 +108,65 @@
                     </div>
                 </form>
                 {% else %}
-                <div class="login-prompt">
-                    <h3>Please Log In</h3>
-                    <p>You need to be logged in to use the soil analysis feature.</p>
-                    <a href="/login" class="btn-primary">Login</a>
-                    <a href="/register" class="btn-secondary">Register</a>
-                </div>
+                <!-- Overview for logged-out users -->
+                <section class="hero">
+                    <div class="hero-content">
+                        <h2>Smart Soil Analysis & Crop Recommendations</h2>
+                        <p>Unlock data-driven insights for better yields. FarmHelp analyzes your soil inputs and recommends the best crops, fertilizers, and tips tailored to Maharashtra's regions.</p>
+                        <div class="hero-actions">
+                            <a href="/about" class="btn-primary">Learn More</a>
+                            <a href="/register" class="btn-secondary">Get Started</a>
+                        </div>
+                    </div>
+                    <div class="hero-art" aria-hidden="true"></div>
+                </section>
+
+                <section class="features">
+                    <h3 class="section-title">Why FarmHelp?</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🌱</div>
+                            <h4>Personalized Crops</h4>
+                            <p>Recommendations aligned with your soil's NPK, pH, and climate.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🧪</div>
+                            <h4>Fertilizer Guidance</h4>
+                            <p>Actionable suggestions to optimize nutrients and inputs.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📍</div>
+                            <h4>Region Aware</h4>
+                            <p>Tailored to Western Maharashtra, Khandesh, Vidarbha, Marathwada, and Konkan.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h4>Fast & Simple</h4>
+                            <p>Enter a few values and get instant, easy-to-read insights.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="how-it-works">
+                    <h3 class="section-title">How it works</h3>
+                    <div class="steps">
+                        <div class="step">
+                            <span class="step-num">1</span>
+                            <h4>Create an account</h4>
+                            <p>Register to unlock the soil analysis form and save your insights.</p>
+                        </div>
+                        <div class="step">
+                            <span class="step-num">2</span>
+                            <h4>Enter soil details</h4>
+                            <p>Provide N, P, K, pH, temperature, humidity, rainfall, and region.</p>
+                        </div>
+                        <div class="step">
+                            <span class="step-num">3</span>
+                            <h4>Get recommendations</h4>
+                            <p>Receive crops, fertilizers, and tips tailored to your conditions.</p>
+                        </div>
+                    </div>
+                </section>
                 {% endif %}
             </section>
 
@@ -145,7 +198,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2023 FarmHelp - Soil Analysis & Crop Recommendation</p>
+            <p>&copy; 2025 FarmHelp - Soil Analysis & Crop Recommendation</p>
         </div>
     </footer>
 

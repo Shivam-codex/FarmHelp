@@ -241,21 +241,38 @@ def predict():
         if data['region'] not in valid_regions:
             return jsonify({'error': 'Invalid region selected'}), 400
         
-        # Prepare input for model - simplified approach without pandas
-        # For demo purposes, we'll just return a crop based on the region
+        # Prepare input for model - considering both region and NPK values
         region = data['region']
+        n_value = data['N']
+        p_value = data['P']
+        k_value = data['K']
         
-        # Simple mapping of regions to crops for demonstration
+        # Base mapping of regions to crops
         region_crop_map = {
-            'Western Maharashtra': 'pomegranate',
-            'Khandesh/North Maharashtra': 'cotton',
-            'Vidarbha': 'orange',
-            'Marathwada': 'chickpea',
-            'Konkan': 'rice'
+            'Western Maharashtra': ['pomegranate', 'grapes', 'sugarcane'],
+            'Khandesh/North Maharashtra': ['cotton', 'wheat', 'soybean'],
+            'Vidarbha': ['orange', 'cotton', 'soybean'],
+            'Marathwada': ['chickpea', 'jowar', 'sugarcane'],
+            'Konkan': ['rice', 'mango', 'coconut']
         }
         
-        # Get prediction based on region
-        prediction = region_crop_map.get(region, 'rice')
+        # Get base crops for the region
+        region_crops = region_crop_map.get(region, ['rice'])
+        
+        # Determine crop based on NPK values
+        # Higher N favors leafy growth (first crop)
+        # Higher P favors root development and flowering (second crop)
+        # Higher K favors overall plant health and fruit development (third crop)
+        
+        if n_value > p_value and n_value > k_value:
+            prediction = region_crops[0]  # N is highest
+        elif p_value > n_value and p_value > k_value:
+            prediction = region_crops[1] if len(region_crops) > 1 else region_crops[0]  # P is highest
+        elif k_value > n_value and k_value > p_value:
+            prediction = region_crops[2] if len(region_crops) > 2 else region_crops[0]  # K is highest
+        else:
+            # If values are equal or close, use balanced approach
+            prediction = region_crops[0]
         
         # Load model
         # model = load_model()

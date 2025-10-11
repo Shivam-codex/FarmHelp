@@ -161,9 +161,15 @@ function setupSoilAnalysisForm() {
                     window.location.href = '/login';
                     return;
                 }
-                return response.json().then(err => {
-                    throw new Error(err.error || 'An error occurred during prediction');
-                });
+                // Check content type to avoid parsing HTML as JSON
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    return response.json().then(err => {
+                        throw new Error(err.error || 'An error occurred during prediction');
+                    });
+                } else {
+                    throw new Error('Server error: The server returned an invalid response');
+                }
             }
             return response.json();
         })
@@ -226,10 +232,21 @@ function displayResults(data) {
     const fertilizersList = document.getElementById('fertilizers-list');
     const farmingTips = document.getElementById('farming-tips');
     
-    if (cropName) cropName.textContent = data.crop || 'Unknown crop';
-    if (cropDescription) cropDescription.textContent = data.description || 'No description available';
+    // Get the form data to display NPK values in the results
+    const nValue = document.getElementById('nitrogen').value;
+    const pValue = document.getElementById('phosphorus').value;
+    const kValue = document.getElementById('potassium').value;
     
-    // Display fertilizers
+    if (cropName) cropName.textContent = data.crop || 'Unknown crop';
+    
+    // Enhanced description with NPK values
+    if (cropDescription) {
+        let enhancedDescription = data.description || 'No description available';
+        enhancedDescription += `\n\nBased on your soil NPK values (N:${nValue}, P:${pValue}, K:${kValue}), this crop is recommended for optimal growth.`;
+        cropDescription.textContent = enhancedDescription;
+    }
+    
+    // Display fertilizers with NPK-specific recommendations
     if (fertilizersList && data.fertilizers) {
         fertilizersList.innerHTML = '';
         data.fertilizers.forEach(item => {
@@ -237,11 +254,45 @@ function displayResults(data) {
             li.textContent = item;
             fertilizersList.appendChild(li);
         });
+        
+        // Add NPK-specific fertilizer recommendation
+        const npkLi = document.createElement('li');
+        npkLi.innerHTML = `<strong>NPK-specific recommendation:</strong> `;
+        
+        if (parseInt(nValue) < 50) {
+            npkLi.innerHTML += 'Add nitrogen-rich fertilizers like urea or ammonium sulfate. ';
+        }
+        if (parseInt(pValue) < 50) {
+            npkLi.innerHTML += 'Add phosphorus-rich fertilizers like DAP or rock phosphate. ';
+        }
+        if (parseInt(kValue) < 50) {
+            npkLi.innerHTML += 'Add potassium-rich fertilizers like MOP or potassium sulfate.';
+        }
+        
+        if (parseInt(nValue) >= 50 && parseInt(pValue) >= 50 && parseInt(kValue) >= 50) {
+            npkLi.innerHTML += 'Your NPK levels are sufficient. Maintain with balanced fertilizers.';
+        }
+        
+        fertilizersList.appendChild(npkLi);
     }
     
-    // Display farming tips (tips is a string, not an array)
+    // Display farming tips with NPK considerations
     if (farmingTips && data.tips) {
-        farmingTips.textContent = data.tips;
+        let enhancedTips = data.tips;
+        
+        // Add NPK-specific tips
+        enhancedTips += '\n\nNPK Management: ';
+        if (parseInt(nValue) > 100) {
+            enhancedTips += 'Your nitrogen levels are high. Consider crops that require high nitrogen. ';
+        }
+        if (parseInt(pValue) > 100) {
+            enhancedTips += 'Your phosphorus levels are high. Good for flowering and fruiting crops. ';
+        }
+        if (parseInt(kValue) > 100) {
+            enhancedTips += 'Your potassium levels are high. Beneficial for root crops and overall plant health.';
+        }
+        
+        farmingTips.textContent = enhancedTips;
     }
 }
 
